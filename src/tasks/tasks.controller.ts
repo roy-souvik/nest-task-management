@@ -2,6 +2,7 @@ import { Controller, Get, Body, Param, ParseIntPipe, Post, UsePipes, ValidationP
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './task.entity';
+import { TaskStatus } from './task-status.enum';
 
 @Controller('tasks')
 export class TasksController {
@@ -14,9 +15,18 @@ export class TasksController {
 
     @Post()
     // @UsePipes(ValidationPipe)
-    public createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+    public async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
         return this.tasksService.createTask(createTaskDto);
     }
+
+    public async updateTaskStatus(
+        @Param('id', ParseIntPipe) id: number,
+        @Body('status') status: TaskStatus
+    ): Promise<Task> {
+        return this.tasksService.updateTaskStatus(id, status);
+    }
+
+
 
     // @Get()
     // public async getAllTasks(): Promise<Task[]> {
