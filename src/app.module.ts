@@ -9,6 +9,6 @@ import { AuthModule } from './auth/auth.module';
     TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
     AuthModule
-  ]
+  ],
 })
 export class AppModule {}
